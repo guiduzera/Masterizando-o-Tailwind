@@ -10,8 +10,8 @@ export const FileList = () => {
 
   return (
     <div ref={parent} className="mt-4 space-y-3">
-      {files.map(({ name, size }) => {
-        return FileItem({ name, size, state: 'uploading' })
+      {files.map(({ name, size, type }) => {
+        return FileItem({ name, size, type, state: 'uploading' })
       })}
     </div>
   )

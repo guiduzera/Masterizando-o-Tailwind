@@ -1,6 +1,6 @@
 import { Button } from '@/components/Button'
 import { formatBytes } from '@/utils/format-bytes'
-import { CheckCircle2, Trash2, UploadCloud } from 'lucide-react'
+import { CheckCircle2, File, Film, Trash2, UploadCloud } from 'lucide-react'
 import { tv, VariantProps } from 'tailwind-variants'
 
 const fileItem = tv({
@@ -47,15 +47,25 @@ const fileItem = tv({
 interface fileItemProps extends VariantProps<typeof fileItem> {
   name: string
   size: number
+  type: string
 }
 
-export const FileItem = ({ name, size, state }: fileItemProps) => {
+export const FileItem = ({ name, size, type, state }: fileItemProps) => {
   const { container, icon, deleteButton } = fileItem({ state })
 
   return (
-    <div className={container()}>
+    <div key={name} className={container()}>
       <div className={icon()}>
-        <UploadCloud className="h-4 w-4" />
+        {type === 'image/jpeg' || type === 'image/png' ? (
+          <Film className="h-5 w-5" />
+        ) : type === 'application/pdf' ? (
+          <File className="h-5 w-5" />
+        ) : type ===
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ? (
+          <UploadCloud className="h-5 w-5" />
+        ) : (
+          <File className="h-5 w-5" />
+        )}
       </div>
 
       {state === 'error' ? (
